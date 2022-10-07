@@ -10,6 +10,7 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.codepath.apps.restclienttemplate.models.Tweet
+import android.content.Intent
 
 private const val TAG = "DetailActivity"
 class DetailActivity : AppCompatActivity() {
@@ -25,6 +26,9 @@ class DetailActivity : AppCompatActivity() {
         val tvTweetBody = findViewById<TextView>(R.id.tvTweetBody)
         val tvTimestamp = findViewById<TextView>(R.id.tvTimestamp)
         val ivMediaImage = findViewById<ImageView>(R.id.ivMediaImage)
+        val tvCounts = findViewById<TextView>(R.id.tvCounts)
+        val ivRetweetBtn = findViewById<ImageView>(R.id.ivRetweetBtn)
+        val ivLikeBtn = findViewById<ImageView>(R.id.ivLikeBtn)
 
         val tweet = intent.getParcelableExtra(TWEET_EXTRA) as Tweet
 
@@ -32,6 +36,22 @@ class DetailActivity : AppCompatActivity() {
         tvScreenName.text = "@${tweet.user?.screenName}"
         tvTweetBody.text = tweet.body
         tvTimestamp.text = TimeFormatter.getTimeStamp(tweet.createdAt)
+        var countText = ""
+        if (tweet.retweetCount != 0){
+            countText += "${tweet.retweetCount} Retweets "
+        }
+        if (tweet.likeCount != 0){
+            countText += "${tweet.likeCount} Likes "
+        }
+        tvCounts.text = countText
+
+        if (tweet.retweeted) {
+            ivRetweetBtn.setImageResource(R.drawable.ic_vector_retweet)
+        }
+//        if (tweet.liked) {
+//            ivLikeBtn.setImageResource(R.drawable.ic_vector_heart)
+//        }
+
 
         Glide.with(this)
             .load(tweet.user?.publicImageUrl)

@@ -40,6 +40,22 @@ class TweetsAdapter(private val context: Context,
         holder.tvScreenName.text = "@${tweet.user?.screenName}"
         holder.tvTweetBody.text = tweet.body
         holder.tvTimestamp.text = TimeFormatter.getTimeDifference(tweet.createdAt)
+        if (tweet.retweetCount == 0) {
+            holder.tvRetweetCount.text = ""
+        } else {
+            holder.tvRetweetCount.text = tweet.retweetCount.toString()
+        }
+        if (tweet.likeCount == 0) {
+            holder.tvLikeCount.text = ""
+        } else {
+            holder.tvLikeCount.text = tweet.likeCount.toString()
+        }
+        if (tweet.retweeted) {
+            holder.ivRetweetBtn.setImageResource(R.drawable.ic_vector_retweet)
+        }
+        if (tweet.liked) {
+            holder.ivLikeBtn.setImageResource(R.drawable.ic_vector_heart)
+        }
 
         Glide.with(holder.itemView)
             .load(tweet.user?.publicImageUrl)
@@ -71,6 +87,10 @@ class TweetsAdapter(private val context: Context,
         val tvScreenName = itemView.findViewById<TextView>(R.id.tvScreenname)
         val tvTweetBody = itemView.findViewById<TextView>(R.id.tvTweetBody)
         val tvTimestamp = itemView.findViewById<TextView>(R.id.tvTimestamp)
+        val tvRetweetCount = itemView.findViewById<TextView>(R.id.tvRetweetCount)
+        val tvLikeCount = itemView.findViewById<TextView>(R.id.tvLikeCount)
+        val ivRetweetBtn = itemView.findViewById<ImageView>(R.id.ivRetweetBtn)
+        val ivLikeBtn = itemView.findViewById<ImageView>(R.id.ivLikeBtn)
 
         override fun onClick(p0: View?) {
             val tweet = tweets.get(absoluteAdapterPosition)

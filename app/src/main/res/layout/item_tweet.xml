@@ -85,7 +85,7 @@
         tools:text="1m" />
 
     <ImageView
-        android:id="@+id/ivCommentBtn"
+        android:id="@+id/ivReplyBtn"
         android:layout_width="@dimen/action_icon_size"
         android:layout_height="@dimen/action_icon_size"
         android:layout_marginStart="@dimen/item_margin"
@@ -103,7 +103,7 @@
         android:layout_marginStart="60dp"
         android:layout_marginTop="@dimen/item_margin"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ivCommentBtn"
+        app:layout_constraintStart_toEndOf="@+id/ivReplyBtn"
         app:layout_constraintTop_toBottomOf="@+id/tvTweetBody"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/ic_vector_retweet_stroke" />
@@ -132,4 +132,24 @@
         app:layout_constraintTop_toBottomOf="@+id/tvTweetBody"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@android:drawable/ic_menu_share" />
+
+    <TextView
+        android:id="@+id/tvRetweetCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivRetweetBtn"
+        app:layout_constraintStart_toEndOf="@+id/ivRetweetBtn"
+        app:layout_constraintTop_toTopOf="@+id/ivRetweetBtn"
+        tools:text="4"/>
+
+    <TextView
+        android:id="@+id/tvLikeCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivLikeBtn"
+        app:layout_constraintStart_toEndOf="@+id/ivLikeBtn"
+        app:layout_constraintTop_toTopOf="@+id/ivLikeBtn"
+        tools:text="26"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

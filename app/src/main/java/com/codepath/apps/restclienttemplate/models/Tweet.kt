@@ -15,7 +15,11 @@ data class Tweet(
     var body: String = "",
     var createdAt: String = "",
     var user: User? = null,
-    var entities: Entity? = null
+    var entities: Entity? = null,
+    var retweetCount: Int = 0,
+    var likeCount: Int = 0,
+    var retweeted: Boolean = false,
+    var liked: Boolean = false
 ) : Parcelable {
 
     companion object {
@@ -26,6 +30,10 @@ data class Tweet(
             tweet.createdAt = jsonObject.getString("created_at")
             tweet.user = User.fromJson(jsonObject.getJSONObject("user"))
             tweet.entities = Entity.fromJson(jsonObject.getJSONObject("entities"))
+            tweet.retweetCount = jsonObject.getInt("retweet_count")
+            tweet.likeCount = jsonObject.getInt("favorite_count")
+            tweet.retweeted = jsonObject.getBoolean("retweeted")
+            tweet.liked = jsonObject.getBoolean("favorited")
 
             if (max_id == (-1).toLong() || tweet.id < max_id) {
                 max_id = tweet.id

@@ -10,11 +10,15 @@ import android.widget.Toast
 import com.codepath.apps.restclienttemplate.models.Tweet
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler
 import okhttp3.Headers
+import android.text.Editable
+import android.text.TextWatcher
+import android.widget.TextView
 
 class ComposeActivity : AppCompatActivity() {
 
     lateinit var etCompose: EditText
     lateinit var btnTweet: Button
+    lateinit var tvCharacterCount: TextView
 
     lateinit var client: TwitterClient
 
@@ -24,6 +28,22 @@ class ComposeActivity : AppCompatActivity() {
 
         etCompose = findViewById(R.id.etTweetCompose)
         btnTweet = findViewById(R.id.btnTweet)
+        tvCharacterCount = findViewById(R.id.tvCharacterCount)
+
+        etCompose.addTextChangedListener(object : TextWatcher {
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                // Fires right as the text is being changed (even supplies the range of text)
+            }
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+                // Fires right before text is changing
+            }
+
+            override fun afterTextChanged(s: Editable) {
+                // Fires right after the text has changed
+                tvCharacterCount.text = "${s.length}/280"
+            }
+        })
 
         client = TwitterApplication.getRestClient(this)
 
@@ -32,8 +52,8 @@ class ComposeActivity : AppCompatActivity() {
 
             if (tweetContent.isEmpty()) {
                 Toast.makeText(this, "Empty tweet not allowed!", Toast.LENGTH_SHORT).show()
-            } else if (tweetContent.length > 140) {
-                Toast.makeText(this, "Tweet is too long! Limit is 140 characters", Toast.LENGTH_SHORT).show()
+            } else if (tweetContent.length > 280) {
+                Toast.makeText(this, "Tweet is too long! Limit is 280 characters", Toast.LENGTH_SHORT).show()
             } else {
                 client.publishTweet(tweetContent, object: JsonHttpResponseHandler() {
                     override fun onSuccess(statusCode: Int, headers: Headers?, json: JSON) {

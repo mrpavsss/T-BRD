@@ -15,21 +15,18 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import android.content.Intent
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 var max_id: Long = -1
 
 class TimelineActivity : AppCompatActivity() {
 
     lateinit var client: TwitterClient
-
     lateinit var rvTweets: RecyclerView
-
     lateinit var adapter: TweetsAdapter
-
     lateinit var swipeContainer: SwipeRefreshLayout
-
     private lateinit var scrollListener: EndlessRecyclerViewScrollListener
-
+    lateinit var btnCompose: FloatingActionButton
     val tweets = ArrayList<Tweet>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,6 +70,12 @@ class TimelineActivity : AppCompatActivity() {
         }
 
         rvTweets.addOnScrollListener(scrollListener)
+
+        btnCompose = findViewById(R.id.btnCompose)
+        btnCompose.setOnClickListener {
+            val intent = Intent(this, ComposeActivity::class.java)
+            startActivityForResult(intent, REQUEST_CODE)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -81,10 +84,10 @@ class TimelineActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.compose) {
-            val intent = Intent(this, ComposeActivity::class.java)
-            startActivityForResult(intent, REQUEST_CODE)
-        }
+//        if (item.itemId == R.id.compose) {
+//            val intent = Intent(this, ComposeActivity::class.java)
+//            startActivityForResult(intent, REQUEST_CODE)
+//        }
         return super.onOptionsItemSelected(item)
     }
 

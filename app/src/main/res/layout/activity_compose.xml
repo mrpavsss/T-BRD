@@ -28,4 +28,14 @@
         android:text="Tweet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etTweetCompose" />
+
+    <TextView
+        android:id="@+id/tvCharacterCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="0/280"
+        app:layout_constraintBottom_toBottomOf="@+id/btnTweet"
+        app:layout_constraintEnd_toStartOf="@+id/btnTweet"
+        app:layout_constraintTop_toTopOf="@+id/btnTweet" />
 </androidx.constraintlayout.widget.ConstraintLayout>
